@@ -434,6 +434,7 @@
     <Compile Include="Web\PerfLoggedPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Web\Services\CustomApiExceptionLogger.cs" />
     <Compile Include="Web\Services\CustomApiExceptionHandler.cs" />
   </ItemGroup>
   <ItemGroup>
