@@ -44,4 +44,5 @@ steps:
     command: 'push'
     packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
     nuGetFeedType: 'internal'
+    versioningScheme: byBuildNumber
     publishVstsFeed: 'd44456ac-363d-4655-b0b5-371c873226cc/61c93cab-09eb-485b-a9c2-d396fc5d9cac'
