@@ -22,19 +22,19 @@ namespace MCS.Logging.DotNetFramework
 
             string logFolderLocation = ConfigurationManager.AppSettings["LogFolderLocation"];
             _perfLogger = new LoggerConfiguration()
-                .WriteTo.File(path: $"{logFolderLocation}\\Logs\\perf-{DateTime.Now.ToString("MMddyyyy")}.txt")
+                .WriteTo.File(path: $"{logFolderLocation}\\perf-{DateTime.Now.ToString("MMddyyyy")}.txt")
                 .CreateLogger();
 
             _usageLogger = new LoggerConfiguration()
-                .WriteTo.File(path: $"{logFolderLocation}\\Logs\\usage-{DateTime.Now.ToString("MMddyyyy")}.txt")
+                .WriteTo.File(path: $"{logFolderLocation}\\usage-{DateTime.Now.ToString("MMddyyyy")}.txt")
                 .CreateLogger();
 
             _errorLogger = new LoggerConfiguration()
-                .WriteTo.File(path: $"{logFolderLocation}\\Logs\\error-{DateTime.Now.ToString("MMddyyyy")}.txt")
+                .WriteTo.File(path: $"{logFolderLocation}\\error-{DateTime.Now.ToString("MMddyyyy")}.txt")
                 .CreateLogger();
 
             _diagnosticLogger = new LoggerConfiguration()
-                .WriteTo.File(path: $"{logFolderLocation}\\Logs\\diagnostic-{DateTime.Now.ToString("MMddyyyy")}.txt")
+                .WriteTo.File(path: $"{logFolderLocation}\\diagnostic-{DateTime.Now.ToString("MMddyyyy")}.txt")
                 .CreateLogger();
         }
 

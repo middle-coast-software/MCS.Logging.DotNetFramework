@@ -9,7 +9,7 @@
     <license type="expression">MIT</license>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Initial Release</releaseNotes>
+    <releaseNotes>Changed default log file location</releaseNotes>
     <copyright>Copyright 2019</copyright>
     <tags>MiddleCoastSoftware Serilog Logging</tags>
     <dependencies>
