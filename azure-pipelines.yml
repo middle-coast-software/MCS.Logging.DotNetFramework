@@ -32,8 +32,8 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-- task: PublishBuildArtifacts@1
+- task: NuGetCommand@2
   inputs:
-    pathtoPublish: 'artifacts/nuget'
-    artifactName: 'Nuget'
-  displayName: 'Publish Artifacts'
+    command: 'pack'
+    packagesToPack: '**/*.csproj'
+    packDestination: '$(Build.ArtifactStagingDirectory)'
