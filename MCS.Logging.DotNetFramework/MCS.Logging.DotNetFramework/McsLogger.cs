@@ -16,25 +16,25 @@ namespace MCS.Logging.DotNetFramework
 
         static McsLogger()
         {
-            string logDestinationType = ConfigurationManager.AppSettings["McsFileLogDestinationType"];
+            string logDestinationType = ConfigurationManager.AppSettings["McsFileLogDestinationTypes"];
             
             //TODO: Add Switch Handler for other types of destinations once this is proven out
 
             string logFolderLocation = ConfigurationManager.AppSettings["LogFolderLocation"];
             _perfLogger = new LoggerConfiguration()
-                .WriteTo.File(path: $"{logFolderLocation}\\perf.txt")
+                .WriteTo.File(path: $"{logFolderLocation}\\Logs\\perf-{DateTime.Now.ToString("MMddyyyy")}.txt")
                 .CreateLogger();
 
             _usageLogger = new LoggerConfiguration()
-                .WriteTo.File(path: $"{logFolderLocation}\\usage.txt")
+                .WriteTo.File(path: $"{logFolderLocation}\\Logs\\usage-{DateTime.Now.ToString("MMddyyyy")}.txt")
                 .CreateLogger();
 
             _errorLogger = new LoggerConfiguration()
-                .WriteTo.File(path: $"{logFolderLocation}\\error.txt")
+                .WriteTo.File(path: $"{logFolderLocation}\\Logs\\error-{DateTime.Now.ToString("MMddyyyy")}.txt")
                 .CreateLogger();
 
             _diagnosticLogger = new LoggerConfiguration()
-                .WriteTo.File(path: $"{logFolderLocation}\\diagnostic.txt")
+                .WriteTo.File(path: $"{logFolderLocation}\\Logs\\diagnostic-{DateTime.Now.ToString("MMddyyyy")}.txt")
                 .CreateLogger();
         }
 

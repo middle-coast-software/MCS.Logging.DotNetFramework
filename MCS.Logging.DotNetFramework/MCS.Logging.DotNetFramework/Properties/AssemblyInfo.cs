@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("MCS.Logging.DotNetFramework")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A general purpose .Net Framework Logging library for use with Serilog")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Middle Coast Software LLC")]
 [assembly: AssemblyProduct("MCS.Logging.DotNetFramework")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
