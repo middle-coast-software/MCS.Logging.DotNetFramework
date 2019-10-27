@@ -6,6 +6,8 @@
 trigger:
 - master
 
+name: $(MajorVersion).$(MinorVersion).$(PatchVersion)$(rev:.r)
+
 pool:
   vmImage: 'windows-latest'
 
