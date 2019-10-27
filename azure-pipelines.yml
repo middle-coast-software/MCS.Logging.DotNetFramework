@@ -33,13 +33,15 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-- task: NuGetCommand@2
-  displayName: "nuget pack"
+- task: DotNetCoreCLI@2
+  displayName: "dotnet pack"
   inputs:
     command: 'pack'
     arguments: '--configuration $(buildConfiguration)'
-    packagesToPack: 'MCS.Logging.DotNetFramework/MCS.Logging.DotNetFramework.csproj'
+    packagesToPack: 'CommonLib/CommonLib.csproj'
+    nobuild: true
     versioningScheme: 'off'
+
 - task: NuGetCommand@2
   displayName: 'nuget push'
   inputs:
