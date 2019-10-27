@@ -32,22 +32,14 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-
-- task: DotNetCoreCLI@2
-  displayName: "dotnet pack"
+- task: NuGetCommand@2
   inputs:
     command: 'pack'
-    arguments: '--configuration $(buildConfiguration)'
-    packagesToPack: 'MCS.Logging.DotNetFramework/MCS.Logging.DotNetFramework.csproj'
-    nobuild: true
-    versioningScheme: 'off'
-
+    packagesToPack: '**/*.csproj'
+    versioningScheme: 'byBuildNumber'
 - task: NuGetCommand@2
-  displayName: 'nuget push'
   inputs:
     command: 'push'
     packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
     nuGetFeedType: 'internal'
-    publishVstsFeed: 'mcsnuget'
-    versioningScheme: 'off'
-    allowPackageConflicts: true
+    publishVstsFeed: 'd44456ac-363d-4655-b0b5-371c873226cc/61c93cab-09eb-485b-a9c2-d396fc5d9cac'
