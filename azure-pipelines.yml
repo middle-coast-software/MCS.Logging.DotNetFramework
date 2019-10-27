@@ -38,7 +38,7 @@ steps:
   inputs:
     command: 'pack'
     arguments: '--configuration $(buildConfiguration)'
-    packagesToPack: 'CommonLib/CommonLib.csproj'
+    packagesToPack: 'MCS.Logging.DotNetFramework/MCS.Logging.DotNetFramework.csproj'
     nobuild: true
     versioningScheme: 'off'
 
