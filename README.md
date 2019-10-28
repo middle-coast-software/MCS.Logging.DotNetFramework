@@ -4,7 +4,7 @@ A logging library that uses Serilog for logging application data.
 This library generalizes a collection of useful logging tools to reduce some of the repeat work associated with implementing Serilog in a project. It provides easy to use performance, usage, diagnostic, and exception logging methods. 
 
 ## Supported Serilog Sinks
-The following are supported with drop in web.config entries (documentation pending as the package develops). They can be used individually or in combinations as you choose.
+The following are supported with drop in app.config entries (documentation pending as the package develops). They can be used individually or in combinations as you choose.
 1. File
 2. MS SQL Server
 
@@ -17,14 +17,14 @@ The list may be either comma-delimited or space-delimited and capitalization doe
 
 ## Current Configurations
 ### File
-File sinks are supported with a single web.config appsetting entry to specify the folder location in which log files should be placed.
+File sinks are supported with a single app.config appsetting entry to specify the folder location in which log files should be placed.
 ```
 <add key="LogFolderLocation" value="<!-- relative or absolute folder location goes here-->\" />
 ```
 Four files will be published for each day. One each for performance, usage, diagnostic, and errors. Each of them will end with a date in the format MMddyyyy.
 
 ### SQL
-MS Sql Logs are enabled with 2 web.config entries. A connection string named "LogConnection" and an appsetting to control the log batch size. 
+MS Sql Logs are enabled with 2 app.config entries. A connection string named "LogConnection" and an appsetting to control the log batch size. 
 ```
 
 <appSettings>
