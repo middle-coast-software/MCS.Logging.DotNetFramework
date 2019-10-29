@@ -4,7 +4,7 @@ using System.Data.Entity.Infrastructure.Interception;
 
 namespace MCS.Logging.DotNetFramework.Data.CustomEntityFramework
 {
-    public class EntityFrameworkInterceptor
+    public class EntityFrameworkInterceptor: IDbInterceptor
     {
         private Exception WrapEntityFrameworkException(DbCommand command, Exception ex)
         {

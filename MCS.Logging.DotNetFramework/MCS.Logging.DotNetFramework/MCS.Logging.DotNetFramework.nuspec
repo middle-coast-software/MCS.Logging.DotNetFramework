@@ -9,7 +9,8 @@
     <license type="expression">MIT</license>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Improved file log location search and added preliminary implementation of Sql Server as a log sink option.</releaseNotes>
+    <releaseNotes>Fixed an missing interface issue with the entity framework interceptor.</releaseNotes>
+    <repository>https://github.com/middle-coast-software/MCS.Logging.DotNetFramework</repository>
     <copyright>Copyright 2019</copyright>
     <tags>MiddleCoastSoftware Serilog Logging</tags>
     <dependencies>
