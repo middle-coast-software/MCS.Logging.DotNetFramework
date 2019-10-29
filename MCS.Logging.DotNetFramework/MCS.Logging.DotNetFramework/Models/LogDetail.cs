@@ -29,5 +29,6 @@ namespace MCS.Logging.DotNetFramework.Models
         public Exception Exception { get; set; } //Error Only
         public string CorrelationId { get; set; } // For grouping of logs bubbled up the exec chain
         public Dictionary<string, object> AdditionalInfo { get; set; }  // the kitchen sink
+        public CustomException CustomException { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using System;
 using System.Configuration;
 using MCS.Logging.DotNetFramework.Models;
 using System.Data.SqlClient;
+using MCS.Logging.DotNetFramework.Builders;
 
 namespace MCS.Logging.DotNetFramework
 {
@@ -16,35 +17,57 @@ namespace MCS.Logging.DotNetFramework
 
         static McsLogger()
         {
-            string logDestinationType = ConfigurationManager.AppSettings["McsFileLogDestinationTypes"];
-            
-            //TODO: Add Switch Handler for other types of destinations once this is proven out
+            string logDestinationType = ConfigurationManager.AppSettings["McsFileLogDestinationTypes"] ?? "";
+            string logFolderLocation = ConfigurationManager.AppSettings["LogFolderLocation"] ?? ".\\Logs\\";
+            string logConnectionString = ConfigurationManager.ConnectionStrings["LogConnection"].ConnectionString ?? "";
+            string logBatchSize = ConfigurationManager.AppSettings["LogBatchSize"] ?? "1";
 
-            string logFolderLocation = ConfigurationManager.AppSettings["LogFolderLocation"];
-            _perfLogger = new LoggerConfiguration()
-                .WriteTo.File(path: $"{logFolderLocation}\\perf-{DateTime.Now.ToString("MMddyyyy")}.txt")
-                .CreateLogger();
+            if (!int.TryParse(logBatchSize, out var batchSize))
+                batchSize = 1;
 
-            _usageLogger = new LoggerConfiguration()
-                .WriteTo.File(path: $"{logFolderLocation}\\usage-{DateTime.Now.ToString("MMddyyyy")}.txt")
-                .CreateLogger();
+            var logToFile = logDestinationType.ToUpper().Contains("FILE");
+            var logToSQL = logDestinationType.ToUpper().Contains("SQL");
 
-            _errorLogger = new LoggerConfiguration()
-                .WriteTo.File(path: $"{logFolderLocation}\\error-{DateTime.Now.ToString("MMddyyyy")}.txt")
-                .CreateLogger();
-
-            _diagnosticLogger = new LoggerConfiguration()
-                .WriteTo.File(path: $"{logFolderLocation}\\diagnostic-{DateTime.Now.ToString("MMddyyyy")}.txt")
-                .CreateLogger();
+            if (logToSQL && logToFile)
+            {
+                FileSqlLogBuilder.BuildLogger(ref _perfLogger, ref _usageLogger, ref _errorLogger, ref _diagnosticLogger, logFolderLocation, logConnectionString, batchSize);             
+            }
+            else if (logToFile)
+                FileLogBuilder.BuildLogger(ref _perfLogger, ref _usageLogger, ref _errorLogger, ref _diagnosticLogger, logFolderLocation);
+            else if (logToSQL)
+            {                
+                SqlLogBuilder.BuildLogger(ref _perfLogger, ref _usageLogger, ref _errorLogger, ref _diagnosticLogger, logConnectionString, batchSize);                
+            }
+           
         }
 
         public static void WritePerf(LogDetail infoToLog)
         {
-            _perfLogger.Write(LogEventLevel.Information, "{@LogDetail}", infoToLog);
+            //_perfLogger.Write(LogEventLevel.Information, "{@LogDetail}", infoToLog);
+            _perfLogger.Write(LogEventLevel.Information,
+                       "{Timestamp}{Product}{Layer}{Location}{Message}{Hostname}{UserId}{UserName}{Exception}{ElapsedMilliseconds}{CorrelationId}{CustomException}{AdditionalInfo}",
+                        infoToLog.Timestamp,
+                        infoToLog.Product, infoToLog.Layer, infoToLog.Location, infoToLog.Message, infoToLog.Hostname,
+                        infoToLog.UserId, infoToLog.UserName, infoToLog.Exception?.ToBetterString(),
+                        infoToLog.ElapsedMilliseconds,
+                        infoToLog.CorrelationId,
+                        infoToLog.CustomException,
+                        infoToLog.AdditionalInfo
+                        );
         }
         public static void WriteUsage(LogDetail infoToLog)
         {
-            _usageLogger.Write(LogEventLevel.Information, "{@LogDetail}", infoToLog);
+            //_usageLogger.Write(LogEventLevel.Information, "{@LogDetail}", infoToLog);
+            _usageLogger.Write(LogEventLevel.Information,
+                    "{Timestamp}{Product}{Layer}{Location}{Message}{Hostname}{UserId}{UserName}{Exception}{ElapsedMilliseconds}{CorrelationId}{CustomException}{AdditionalInfo}",
+                        infoToLog.Timestamp,
+                        infoToLog.Product, infoToLog.Layer, infoToLog.Location, infoToLog.Message, infoToLog.Hostname,
+                        infoToLog.UserId, infoToLog.UserName, infoToLog.Exception?.ToBetterString(),
+                        infoToLog.ElapsedMilliseconds,
+                        infoToLog.CorrelationId,
+                        infoToLog.CustomException,
+                        infoToLog.AdditionalInfo
+                        );
         }
         public static void WriteError(LogDetail infoToLog)
         {
@@ -54,7 +77,19 @@ namespace MCS.Logging.DotNetFramework
                 infoToLog.Location = string.IsNullOrEmpty(procName) ? infoToLog.Location : procName;
                 infoToLog.Message = GetMessageFromException(infoToLog.Exception);
             }
-            _errorLogger.Write(LogEventLevel.Information, "{@LogDetail}", infoToLog);
+            //_errorLogger.Write(LogEventLevel.Information, "{@LogDetail}", infoToLog);
+            _errorLogger.Write(LogEventLevel.Error,
+                    "{Timestamp}{Product}{Layer}{Location}{Message}{Hostname}{UserId}{UserName}{Exception}{ElapsedMilliseconds}{CorrelationId}{CustomException}{AdditionalInfo}",
+                    infoToLog.Timestamp,
+                    infoToLog.Product, infoToLog.Layer, infoToLog.Location, infoToLog.Message, infoToLog.Hostname,
+                    infoToLog.UserId, infoToLog.UserName, infoToLog.Exception?.ToBetterString(),
+                    infoToLog.ElapsedMilliseconds,
+                    infoToLog.CorrelationId,
+                    infoToLog.CustomException,
+                    infoToLog.AdditionalInfo
+                    );
+
+
         }
         public static void WriteDiagnostic(LogDetail infoToLog)
         {
@@ -62,7 +97,17 @@ namespace MCS.Logging.DotNetFramework
             if (!writeDiagnostics)
                 return;
 
-            _diagnosticLogger.Write(LogEventLevel.Information, "{@LogDetail}", infoToLog);
+            //_diagnosticLogger.Write(LogEventLevel.Information, "{@LogDetail}", infoToLog);
+            _diagnosticLogger.Write(LogEventLevel.Information,
+                   "{Timestamp}{Product}{Layer}{Location}{Message}{Hostname}{UserId}{UserName}{Exception}{ElapsedMilliseconds}{CorrelationId}{CustomException}{AdditionalInfo}",
+                        infoToLog.Timestamp,
+                        infoToLog.Product, infoToLog.Layer, infoToLog.Location, infoToLog.Message, infoToLog.Hostname,
+                        infoToLog.UserId, infoToLog.UserName, infoToLog.Exception?.ToBetterString(),
+                        infoToLog.ElapsedMilliseconds,
+                        infoToLog.CorrelationId,
+                        infoToLog.CustomException,
+                        infoToLog.AdditionalInfo
+                        );
         }
 
         private static string GetMessageFromException(Exception ex)

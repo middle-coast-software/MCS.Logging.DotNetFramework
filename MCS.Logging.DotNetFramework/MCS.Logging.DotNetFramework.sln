@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.29418.71
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCS.Logging.DotNetFramework", "MCS.Logging.DotNetFramework\MCS.Logging.DotNetFramework.csproj", "{83B89953-BF71-427D-8F4D-90D4F62C8A62}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggingConsole", "LoggingConsole\LoggingConsole.csproj", "{8C83C242-4676-4FEB-AC14-3AE5DF780427}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{83B89953-BF71-427D-8F4D-90D4F62C8A62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83B89953-BF71-427D-8F4D-90D4F62C8A62}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83B89953-BF71-427D-8F4D-90D4F62C8A62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C83C242-4676-4FEB-AC14-3AE5DF780427}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C83C242-4676-4FEB-AC14-3AE5DF780427}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C83C242-4676-4FEB-AC14-3AE5DF780427}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C83C242-4676-4FEB-AC14-3AE5DF780427}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

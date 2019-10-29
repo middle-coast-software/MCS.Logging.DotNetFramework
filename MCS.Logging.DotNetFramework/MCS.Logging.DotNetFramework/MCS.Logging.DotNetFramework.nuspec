@@ -9,7 +9,7 @@
     <license type="expression">MIT</license>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Changed default log file location</releaseNotes>
+    <releaseNotes>Improved file log location search and added preliminary implementation of Sql Server as a log sink option.</releaseNotes>
     <copyright>Copyright 2019</copyright>
     <tags>MiddleCoastSoftware Serilog Logging</tags>
     <dependencies>
