@@ -9,8 +9,8 @@
     <license type="expression">MIT</license>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Fixed an missing interface issue with the entity framework interceptor.</releaseNotes>
-    <repository>https://github.com/middle-coast-software/MCS.Logging.DotNetFramework</repository>
+    <releaseNotes>Update on perf logger code to eliminate hard coded product name.</releaseNotes>
+    <repository type="git" url="https://github.com/middle-coast-software/MCS.Logging.DotNetFramework" />
     <copyright>Copyright 2019</copyright>
     <tags>MiddleCoastSoftware Serilog Logging</tags>
     <dependencies>

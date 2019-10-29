@@ -13,7 +13,8 @@ namespace MCS.Logging.DotNetFramework.Web
 
             var data = Helpers.GetWebLoggingData(out string userId, out string userName, out string location);
 
-            Tracker = new PerfTracker(name, userId, userName, location, "ToDos", "WebForms", data);
+            Tracker = new PerfTracker(name, userId, userName, location, System.Web.Hosting.HostingEnvironment.ApplicationHost.GetSiteName(), "WebForms", data);
+            
             base.OnLoad(e);
         }
 
