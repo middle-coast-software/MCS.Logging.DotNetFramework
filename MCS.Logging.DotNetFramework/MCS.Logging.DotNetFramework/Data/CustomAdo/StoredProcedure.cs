@@ -24,9 +24,14 @@ namespace MCS.Logging.DotNetFramework.Data.CustomAdo
                 Command.CommandTimeout = timeoutSeconds;
         }
 
-        public void SetParam(string paramName, object value)
+        public void SetParam(string paramName, object value, ParameterDirection direction = ParameterDirection.Input)
         {
-            Command.Parameters.Add(new SqlParameter(paramName, value ?? DBNull.Value));
+            Command.Parameters.Add(new SqlParameter(paramName, value ?? DBNull.Value) { Direction = direction });
+        }
+
+        public void AddParam(SqlParameter param)
+        {
+            Command.Parameters.Add(param);
         }
 
         public int ExecNonQuery()

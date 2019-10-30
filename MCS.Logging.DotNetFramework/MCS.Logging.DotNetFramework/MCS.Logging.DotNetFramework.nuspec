@@ -9,7 +9,7 @@
     <license type="expression">MIT</license>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Added support for transactions in ADO.NET stored procedure calls.</releaseNotes>
+    <releaseNotes>Added support for addition of SqlParameter object to Stored Procedure call so it's output value can be subsequently referenced.</releaseNotes>
     <repository type="git" url="https://github.com/middle-coast-software/MCS.Logging.DotNetFramework" />
     <copyright>Copyright 2019</copyright>
     <tags>MiddleCoastSoftware Serilog Logging</tags>
