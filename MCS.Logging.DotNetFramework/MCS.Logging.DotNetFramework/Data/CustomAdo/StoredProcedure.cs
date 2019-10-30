@@ -16,6 +16,13 @@ namespace MCS.Logging.DotNetFramework.Data.CustomAdo
             if (timeoutSeconds != 30)
                 Command.CommandTimeout = timeoutSeconds;
         }
+        public StoredProcedure(SqlConnection db, string procName, SqlTransaction tran, int timeoutSeconds = 30)
+        {
+            Command = new SqlCommand(procName, db, tran) { CommandType = CommandType.StoredProcedure };
+
+            if (timeoutSeconds != 30)
+                Command.CommandTimeout = timeoutSeconds;
+        }
 
         public void SetParam(string paramName, object value)
         {
