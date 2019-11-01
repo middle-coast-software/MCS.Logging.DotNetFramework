@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MCS.Logging.DotNetFramework.Models
 {
-    public class CustomException
+    public class McsException
     {
         public string ExceptionName { get; set; }
         public string ModuleName { get; set; }
@@ -15,9 +15,9 @@ namespace MCS.Logging.DotNetFramework.Models
         public string Message { get; set; }
         public string StackTrace { get; set; }
         public List<DictEntry> Data { get; set; }
-        public CustomException InnerException { get; set; }
+        public McsException InnerException { get; set; }
 
-        public CustomException GetBaseError()
+        public McsException GetBaseError()
         {
             return InnerException != null ? InnerException.GetBaseError() : this;
         }

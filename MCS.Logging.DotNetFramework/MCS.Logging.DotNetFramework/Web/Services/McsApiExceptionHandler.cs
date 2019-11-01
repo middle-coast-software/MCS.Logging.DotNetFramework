@@ -7,7 +7,7 @@ using System.Web.Http.ExceptionHandling;
 
 namespace MCS.Logging.DotNetFramework.Web.Services
 {
-    public class CustomApiExceptionHandler : System.Web.Http.ExceptionHandling.ExceptionHandler
+    public class McsApiExceptionHandler : System.Web.Http.ExceptionHandling.ExceptionHandler
     {
         public override bool ShouldHandle(ExceptionHandlerContext context)
         {

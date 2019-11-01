@@ -6,10 +6,10 @@ using System.Web.Http.ExceptionHandling;
 
 namespace MCS.Logging.DotNetFramework.Web.Services
 {
-    public class CustomApiExceptionLogger : ExceptionLogger
+    public class McsApiExceptionLogger : ExceptionLogger
     {
         private string _productName;
-        public CustomApiExceptionLogger(string productName)
+        public McsApiExceptionLogger(string productName)
         {
             _productName = productName;
         }
