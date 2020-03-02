@@ -1,6 +1,8 @@
 # MCS.Logging.DotNetFramework
 A logging library that uses Serilog for logging application data.
 
+Documentation is in no way complete at this time, but this should get you started until completeness can be approached (if not fully achieved...alas software is software).
+
 This library generalizes a collection of useful logging tools to reduce some of the repeat work associated with implementing Serilog in a project. It provides easy to use performance, usage, diagnostic, and exception logging methods. 
 
 ## Supported Serilog Sinks
@@ -13,7 +15,7 @@ The sink you wish to use are registered via a list entered as an appsetting entr
 ```
 <add key="McsFileLogDestinationTypes" value="<!-- File Sql -->\" />
 ```
-The list may be either comma-delimited or space-delimited and capitalization does not matter. You can you one or more of the options. Including none will result in no logs being created but should not result in operational failure.
+The list may be either comma-delimited or space-delimited and capitalization does not matter. You can use one or more of the options. Including none will result in no logs being created but should not result in operational failure.
 
 ## Current Configurations
 ### File
@@ -40,3 +42,59 @@ MS Sql Logs are enabled with 2 app.config entries. A connection string named "Lo
 
 ```
 Log batch size corresponds directly the option of the same name found in the Serilog sink library for MSSql. It corresponds to the number of log entries which will be held in memory before pushing them all to the log in a batch. This will default to 1 if not provided, but setting the number higher can relieve network pressure in cases of high throughput.
+
+## How To Actually Log Sh*...stuff
+Now for the good stuff, it's time to hook all the pipes together.
+In your startup class you'll need to register a global exception handler. 
+
+For an API this is pretty simple. Unless you for some reason need to log performance or usage, but we'll get to that.
+#### Error Logging
+
+In the .Net Framework version of this library, logging is chiefly done through static classes.
+Just toss your errors into a logdetail object like the one above, and jam that into the McsLogger's WriteError method.
+
+
+```
+// error log detail
+var eld = new LogDetail(){};
+
+McsLogger.WriteError(eld);
+
+```
+
+#### Performance Tracking
+Perf logging is really the only bit that needs some finesse here. I suggest perhaps writing it into a wrapper class if possible. 
+The general stratefy is to new up a PerfTracker object (it starts measuring when this occurs), then perform your logic, then tell the PerfTracker to stop. 
+It will save a log when the object is told to stop.
+
+'''
+
+var pt = new PerfTracker("performance metric name", "userId if available", "UserName if available",
+                "Location", "Product", "Layer");
+
+
+        ...perform some logic
+
+
+
+pt.Stop();
+
+'''
+
+Note that the input parameters to the PerfTracker object match with properties of the general LogDetail object. This should be useful to build into a reusable code segment.
+
+#### Usage Tracking
+You should be able to add a method attribute to your controller classes.
+Something like this should do it.
+'''
+
+'''
+
+
+#### Diagnostic Logging
+Diagnostic logging is supported with static helper that you can add wherever needed. Note that it does need an HttpContext, so it's not meant to be put just anywhere, but we are talking about web apps here so it didn't feel like a stretch.
+'''
+
+    McsLogger.WriteDiagnostic(ld);
+
+'''
