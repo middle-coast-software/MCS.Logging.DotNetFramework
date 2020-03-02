@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.Web;
 
 namespace MCS.Logging.DotNetFramework
 {
@@ -23,7 +24,8 @@ namespace MCS.Logging.DotNetFramework
                 Product = product,
                 Layer = layer,
                 Location = location,
-                Hostname = Environment.MachineName
+                Hostname = Environment.MachineName,
+                CorrelationId = HttpContext.Current.Session?.SessionID,
             };
 
             var beginTime = DateTime.Now;
