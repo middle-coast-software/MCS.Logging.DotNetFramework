@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29418.71
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCS.Logging.DotNetFramework", "MCS.Logging.DotNetFramework\MCS.Logging.DotNetFramework.csproj", "{83B89953-BF71-427D-8F4D-90D4F62C8A62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCS.Logging.DotNetFramework", "MCS.Logging.DotNetFramework\MCS.Logging.DotNetFramework.csproj", "{83B89953-BF71-427D-8F4D-90D4F62C8A62}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggingConsole", "LoggingConsole\LoggingConsole.csproj", "{8C83C242-4676-4FEB-AC14-3AE5DF780427}"
 EndProject

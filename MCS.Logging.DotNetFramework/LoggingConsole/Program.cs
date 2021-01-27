@@ -24,7 +24,7 @@ namespace LoggingConsole
 
             var fd = GetLogDetail("starting application", null);
             McsLogger.WriteDiagnostic(fd);
-            _ = new PerfTracker("FloggerConsole_Execution", "", fd.UserName,
+            new PerfTracker("FloggerConsole_Execution", "", fd.UserName,
                 fd.Location, fd.Product, fd.Layer);
 
             try
@@ -33,11 +33,13 @@ namespace LoggingConsole
                 ex.Data.Add("input param", "nothing to see here");
                 throw ex;
             }
+#pragma warning disable CA1031 // Do not catch general exception types
             catch (Exception ex)
             {
                 fd = GetLogDetail("", ex);
                 McsLogger.WriteError(fd);
             }
+#pragma warning restore CA1031 // Do not catch general exception types
 
             var connStr = ConfigurationManager.ConnectionStrings["LogConnection"].ConnectionString;
             using (var db = new SqlConnection(connStr))
@@ -60,11 +62,13 @@ namespace LoggingConsole
                     sp.SetParam("@TotalReturns", 100.50M);
                     sp.ExecNonQuery();                    
                 }
+#pragma warning disable CA1031 // Do not catch general exception types
                 catch (Exception ex)
                 {
                     var efd = GetLogDetail("", ex);
                     McsLogger.WriteError(efd);
                 }
+#pragma warning restore CA1031 // Do not catch general exception types
             }
             Console.ReadKey();
         }

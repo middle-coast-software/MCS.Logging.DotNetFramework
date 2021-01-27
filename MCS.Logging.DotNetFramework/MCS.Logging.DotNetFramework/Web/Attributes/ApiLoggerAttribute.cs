@@ -1,15 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace MCS.Logging.DotNetFramework.Web.Attributes
 {
-    public class ApiLoggerAttribute : ActionFilterAttribute
+    public sealed class ApiLoggerAttribute : ActionFilterAttribute
     {
-        private string _productName;
+        private readonly string _productName;
 
         public ApiLoggerAttribute(string productName)
         {
@@ -18,15 +18,9 @@ namespace MCS.Logging.DotNetFramework.Web.Attributes
 
         public override void OnActionExecuting(ActionExecutingContext actionContext)
         {
-            var dict = new Dictionary<string, object>();
+            var dict = Helpers.GetWebLoggingData(out string userId, out string userName, out string location);
 
-            string userId, userName;
-            var user = actionContext.HttpContext.User;
-            Helpers.GetUserData(dict, user, out userId, out userName);
-
-            string location = actionContext.ActionDescriptor.AttributeRouteInfo.Template;
-
-            actionContext.ActionDescriptor.Properties["PerfTracker"] = new PerfTracker(location,
+            actionContext.HttpContext.Items["PerfTracker"] = new PerfTracker(location,
                 userId, userName, location, _productName, "API", dict);
         }
 
@@ -34,17 +28,16 @@ namespace MCS.Logging.DotNetFramework.Web.Attributes
         {
             try
             {
-                var perfTracker = actionExecutedContext.ActionDescriptor.Properties["PerfTracker"]
-                    as PerfTracker;
-
-                if (perfTracker != null)
+                if (actionExecutedContext.HttpContext.Items["PerfTracker"] is PerfTracker perfTracker)
                     perfTracker.Stop();
             }
+#pragma warning disable CA1031 // Do not catch general exception types
             catch (Exception)
             {
                 // ignoring logging exceptions -- don't want an API call to fail 
                 // if we run into logging problems. 
             }
+#pragma warning restore CA1031 // Do not catch general exception types
         }
     }
 }

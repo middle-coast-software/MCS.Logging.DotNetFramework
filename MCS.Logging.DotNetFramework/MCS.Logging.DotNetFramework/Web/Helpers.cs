@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -153,7 +154,7 @@ namespace MCS.Logging.DotNetFramework.Web
         }
 
         internal static void GetUserData(Dictionary<string, object> data,
-            ClaimsPrincipal user,
+            IPrincipal user,
             out string userId,
             out string userName)
         {
@@ -162,7 +163,7 @@ namespace MCS.Logging.DotNetFramework.Web
             if (user != null)
             {
                 var i = 1; // i included in dictionary key to ensure uniqueness
-                foreach (var claim in user.Claims)
+                foreach (var claim in ((ClaimsPrincipal)user).Claims)
                 {
                     if (claim.Type == ClaimTypes.NameIdentifier)
                         userId = claim.Value;

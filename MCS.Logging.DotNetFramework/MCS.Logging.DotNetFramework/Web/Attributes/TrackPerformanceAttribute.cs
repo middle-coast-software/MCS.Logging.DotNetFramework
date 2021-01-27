@@ -1,13 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace MCS.Logging.DotNetFramework.Web.Attributes
 {
-    public class TrackPerformanceAttribute : ActionFilterAttribute
+    public sealed class TrackPerformanceAttribute : ActionFilterAttribute
     {
         private readonly string _productName;
         private readonly string _layerName;
@@ -23,8 +23,8 @@ namespace MCS.Logging.DotNetFramework.Web.Attributes
         {
             var dict = Helpers.GetWebLoggingData(out string userId, out string userName, out string location);
 
-            var type = filterContext.HttpContext.Request.Method;
-            var perfName = filterContext.ActionDescriptor.DisplayName + "_" + type;
+            var type = filterContext.HttpContext.Request.HttpMethod;
+            var perfName = filterContext.ActionDescriptor.ActionName + "_" + type;
 
             var stopwatch = new PerfTracker(perfName, userId, userName, location,
                 _productName, _layerName, dict);

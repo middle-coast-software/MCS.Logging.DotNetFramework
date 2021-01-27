@@ -25,7 +25,7 @@ namespace MCS.Logging.DotNetFramework
                 Layer = layer,
                 Location = location,
                 Hostname = Environment.MachineName,
-                CorrelationId = HttpContext.Current.Session?.SessionID,
+                CorrelationId = HttpContext.Current?.Session?.SessionID,
             };
 
             var beginTime = DateTime.Now;

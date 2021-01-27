@@ -87,9 +87,7 @@ namespace MCS.Logging.DotNetFramework
                     infoToLog.CorrelationId,
                     infoToLog.CustomException,
                     infoToLog.AdditionalInfo
-                    );
-
-
+                    );          
         }
         public static void WriteDiagnostic(LogDetail infoToLog)
         {

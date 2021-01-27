@@ -13,7 +13,7 @@ namespace MCS.Logging.DotNetFramework.Data.CustomEntityFramework
             return newException;
         }
 
-        private void AddParamsToException(DbParameterCollection parameters, Exception exception)
+        private static void AddParamsToException(DbParameterCollection parameters, Exception exception)
         {
             foreach (DbParameter param in parameters)
             {
@@ -25,29 +25,28 @@ namespace MCS.Logging.DotNetFramework.Data.CustomEntityFramework
             if (interceptionContext.Exception != null)
                 interceptionContext.Exception = WrapEntityFrameworkException(command, interceptionContext.Exception);
         }
-
-        public void NonQueryExecuting(DbCommand command, DbCommandInterceptionContext<int> interceptionContext)
-        {
-        }
-
         public void ReaderExecuted(DbCommand command, DbCommandInterceptionContext<DbDataReader> interceptionContext)
         {
             if (interceptionContext.Exception != null)
                 interceptionContext.Exception = WrapEntityFrameworkException(command, interceptionContext.Exception);
         }
-
-        public void ReaderExecuting(DbCommand command, DbCommandInterceptionContext<DbDataReader> interceptionContext)
-        {
-        }
-
         public void ScalarExecuted(DbCommand command, DbCommandInterceptionContext<object> interceptionContext)
         {
             if (interceptionContext.Exception != null)
                 interceptionContext.Exception = WrapEntityFrameworkException(command, interceptionContext.Exception);
         }
 
-        public void ScalarExecuting(DbCommand command, DbCommandInterceptionContext<object> interceptionContext)
+
+#pragma warning disable IDE0060 // Do not catch general exception types
+        public static void NonQueryExecuting(DbCommand command, DbCommandInterceptionContext<int> interceptionContext)
         {
         }
+        public static void ReaderExecuting(DbCommand command, DbCommandInterceptionContext<DbDataReader> interceptionContext)
+        {
+        }
+        public static void ScalarExecuting(DbCommand command, DbCommandInterceptionContext<object> interceptionContext)
+        {
+        }
+#pragma warning restore IDE0060 // Do not catch general exception types
     }
 }
